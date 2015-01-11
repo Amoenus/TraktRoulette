@@ -1,4 +1,4 @@
-package app.amoenus.traktroulette;
+package app.amoenus.traktroulette.test;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

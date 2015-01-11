@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.sunshine.app.test;
+package app.amoenus.traktroulette.test;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
-import com.example.android.sunshine.app.data.WeatherContract.LocationEntry;
-import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
-import com.example.android.sunshine.app.data.WeatherDbHelper;
+import android.util.Log;
+
+import app.amoenus.traktroulette.data.WeatherContract.LocationEntry;
+import app.amoenus.traktroulette.data.WeatherContract.WeatherEntry;
+import app.amoenus.traktroulette.data.WeatherDbHelper;
 
 public class TestDb extends AndroidTestCase {
 
@@ -33,9 +37,7 @@ public class TestDb extends AndroidTestCase {
         db.close();
     }
 
-    /* TODO Uncomment for
-    4a - JUnit testing
-    https://www.udacity.com/course/viewer#!/c-ud853/l-1639338560/m-1633698603
+
     public void testInsertReadDb() {
 
         // Test data we're going to insert into the DB to see if it works.
@@ -127,7 +129,7 @@ public class TestDb extends AndroidTestCase {
         weatherValues.put(WeatherEntry.COLUMN_SHORT_DESC, "Asteroids");
         weatherValues.put(WeatherEntry.COLUMN_WIND_SPEED, 5.5);
         weatherValues.put(WeatherEntry.COLUMN_WEATHER_ID, 321);
-        */
+
 
         /**
          * TODO YOUR CODE BELOW HERE FOR QUIZ
@@ -139,8 +141,9 @@ public class TestDb extends AndroidTestCase {
         4a - JUnit testing
         https://www.udacity.com/course/viewer#!/c-ud853/l-1639338560/m-1633698603
         dbHelper.close();
+        */
     }
-    */
+
 
     /* TODO Uncomment for
     4a - Simplify Tests
