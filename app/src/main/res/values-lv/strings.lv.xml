@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-<string name="app_name">"Trakt Roulette"</string>
-<string name="hello_world">"Sveiki pasaule!"</string>
-<string name="action_settings">"Iestatījumi"</string>
-<string name="action_refresh">"Atjaunot"</string>
-<string name="title_activity_detail">"DetailActivity"</string>
-<string name="pref_location_label">"Atrašanās vieta"</string>
-<string name="pref_location_default">"94043"</string>
-<string name="pref_location_key">"location"</string>
-<string name="action_share">"Padalīties"</string>
-<string name="pref_units_key">"vienības"</string>
-<string name="pref_units_metric">"metriskās"</string>
-<string name="pref_units_imperial"></string>
-<string name="action_map">"Atrašanās vieta kartē"</string>
+  <string name="app_name">Trakt Roulette</string>
+  <string name="hello_world">Sveiki pasaule!</string>
+  <string name="action_settings">Iestat&#299;jumi</string>
+  <string name="action_refresh">Atjaunot</string>
+  <string name="title_activity_detail">DetailActivity</string>
+  <string name="pref_location_label">Atra&#353;an&#257;s vieta</string>
+  <string name="pref_location_default">94043</string>
+  <string name="pref_location_key">location</string>
+  <string name="action_share">Padal&#299;ties</string>
+  <string name="pref_units_key">vien&#299;bas</string>
+  <string name="pref_units_metric">metrisk&#257;s</string>
+  <string name="action_map">Atra&#353;an&#257;s vieta kart&#275;</string>
 </resources>
