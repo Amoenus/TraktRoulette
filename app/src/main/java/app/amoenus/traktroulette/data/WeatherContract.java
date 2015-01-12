@@ -31,9 +31,7 @@ public class WeatherContract {
     // relationship between a domain name and its website.  A convenient string to use for the
     // content authority is the package name for the app, which is guaranteed to be unique on the
     // device.
-    /* TODO Uncomment for
-    4b - Adding ContentProvider to our Contract
-    https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/m-1637521471
+
     public static final String CONTENT_AUTHORITY = "com.example.android.sunshine.app";
 
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
@@ -49,7 +47,7 @@ public class WeatherContract {
 
     public static final String PATH_WEATHER = "weather";
     public static final String PATH_LOCATION = "location";
-    */
+
 
     /* TODO Uncomment for
     4b - Finishing the FetchWeatherTask
@@ -57,9 +55,9 @@ public class WeatherContract {
     // Format used for storing dates in the database.  ALso used for converting those strings
     // back into date objects for comparison/processing.
     
-    public static final String DATE_FORMAT = "yyyyMMdd";
-    */
 
+    */
+    public static final String DATE_FORMAT = "yyyyMMdd";
     /**
      * Converts Date class to a string representation, used for easy comparison and database lookup.
      * @param date The input date
@@ -81,9 +79,8 @@ public class WeatherContract {
      * @param dateText the input date string
      * @return the Date object
      */
-    /* TODO Uncomment for
-    4b - Finishing the FetchWeatherTask
-    https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/m-1675098569
+
+
     public static Date getDateFromDb(String dateText) {
         SimpleDateFormat dbDateFormat = new SimpleDateFormat(DATE_FORMAT);
         try {
@@ -93,7 +90,7 @@ public class WeatherContract {
             return null;
         }
     }
-    */
+
 
     public static final class LocationEntry implements BaseColumns {
         /* Inner class that defines the table contents of the location table */
@@ -113,10 +110,6 @@ public class WeatherContract {
         public static final String COLUMN_COORD_LAT = "coord_lat";
         public static final String COLUMN_COORD_LONG = "coord_long";
 
-        /* TODO Uncomment for
-        4b - Adding ContentProvider to our Contract
-        https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/m-1637521471
-
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
 
@@ -124,14 +117,12 @@ public class WeatherContract {
                 "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
         public static final String CONTENT_ITEM_TYPE =
                 "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
-        */
 
-        /**
-         * TODO YOUR CODE BELOW HERE FOR QUIZ
-         * QUIZ - 4b - Adding LocationEntry with ID UriBuilder
-         * https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1604969848/m-1604969849
-         **/
-
+        public static Uri buildLocationUri(long id)
+        {
+            Uri result = ContentUris.withAppendedId(CONTENT_URI, id);
+            return result;
+        }
     }
 
 /*
@@ -167,9 +158,6 @@ public class WeatherContract {
         // Degrees are meteorological degrees (e.g, 0 is north, 180 is south).  Stored as floats.
         public static final String COLUMN_DEGREES = "degrees";
 
-        /* TODO Uncomment for
-        4b - Adding ContentProvider to our Contract
-        https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/m-1637521471
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEATHER).build();
 
@@ -206,6 +194,6 @@ public class WeatherContract {
 
         public static String getStartDateFromUri(Uri uri) {
             return uri.getQueryParameter(COLUMN_DATETEXT);
-        }*/
+        }
     }
 }
