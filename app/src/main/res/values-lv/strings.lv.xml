@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="app_name">"Trakt Roulette"</string>
-<string name="hello_world"></string>
-<string name="action_settings"></string>
-<string name="action_refresh"></string>
-<string name="title_activity_detail"></string>
-<string name="pref_location_label"></string>
+<string name="hello_world">"Sveiki pasaule!"</string>
+<string name="action_settings">"Iestatījumi"</string>
+<string name="action_refresh">"Atjaunot"</string>
+<string name="title_activity_detail">"DetailActivity"</string>
+<string name="pref_location_label">"Atrašanās vieta"</string>
 <string name="pref_location_default">"94043"</string>
-<string name="pref_location_key"></string>
-<string name="action_share"></string>
-<string name="pref_units_key"></string>
-<string name="pref_units_metric"></string>
+<string name="pref_location_key">"location"</string>
+<string name="action_share">"Padalīties"</string>
+<string name="pref_units_key">"vienības"</string>
+<string name="pref_units_metric">"metriskās"</string>
 <string name="pref_units_imperial"></string>
-<string name="action_map"></string>
+<string name="action_map">"Atrašanās vieta kartē"</string>
 </resources>
