@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Trakt Roulette</string>
-  <string name="hello_world">&#1055;&#1088;&#1080;&#1074;&#1077;&#1090; &#1084;&#1080;&#1088;!</string>
-  <string name="action_settings">&#1053;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1080;</string>
-  <string name="action_refresh">&#1054;&#1073;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100;</string>
-  <string name="title_activity_detail">DetailActivity</string>
-  <string name="pref_location_label">&#1052;&#1077;&#1089;&#1090;&#1086;</string>
-  <string name="pref_location_default">94043</string>
-  <string name="pref_location_key">location</string>
-  <string name="action_share">&#1055;&#1086;&#1076;&#1077;&#1083;&#1080;&#1090;&#1100;&#1089;&#1103;</string>
-  <string name="pref_units_key">units</string>
-  <string name="pref_units_metric">&#1052;&#1077;&#1090;&#1088;&#1080;&#1095;&#1077;&#1089;&#1082;&#1072;&#1103;</string>
-  <string name="pref_units_imperial">&#1048;&#1084;&#1087;&#1077;&#1088;&#1089;&#1082;&#1072;&#1103;</string>
-  <string name="action_map">&#1055;&#1086;&#1082;&#1072;&#1079;&#1072;&#1090;&#1100; &#1085;&#1072; &#1082;&#1072;&#1088;&#1090;&#1077;</string>
+<string name="app_name">"Trakt Roulette"</string>
+<string name="hello_world">"Привет мир!"</string>
+<string name="action_settings">"Настройки"</string>
+<string name="action_refresh">"Обновить"</string>
+
+<!-- Fuzzy -->
+<string name="title_activity_detail">"DetailActivity"</string>
+<string name="pref_location_label">"Место"</string>
+<string name="pref_location_default">"94043"</string>
+
+<!-- Fuzzy -->
+<string name="pref_location_key">"location"</string>
+<string name="action_share">"Поделиться"</string>
+
+<!-- not translatable -->
+<!-- Fuzzy -->
+<string name="pref_units_key">"units"</string>
+<string name="pref_units_metric">"Метрическая"</string>
+<string name="pref_units_imperial">"Имперская"</string>
+<string name="action_map">"Показать на карте"</string>
 </resources>
