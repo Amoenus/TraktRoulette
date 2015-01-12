@@ -53,9 +53,6 @@ public class TestProvider extends AndroidTestCase {
          assertEquals(0, cursor.getCount());
          cursor.close();
 
-         /* TODO Uncomment for
-         4b - Implement Location_ID queries
-         https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098551/m-1675098552
          cursor = mContext.getContentResolver().query(
                  LocationEntry.CONTENT_URI,
                  null,
@@ -65,7 +62,6 @@ public class TestProvider extends AndroidTestCase {
          );
          assertEquals(0, cursor.getCount());
          cursor.close();
-         */
      }
 
      // Since we want each test to start with a clean slate, run deleteAllRecords
@@ -73,10 +69,6 @@ public class TestProvider extends AndroidTestCase {
      public void setUp() {
          deleteAllRecords();
      }
-
-     /* TODO Uncomment for
-     4b - Implement Location_ID queries
-     https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098551/m-1675098552
 
      public void testInsertReadProvider() {
 
@@ -131,13 +123,17 @@ public class TestProvider extends AndroidTestCase {
 
          TestDb.validateCursor(weatherCursor, weatherValues);
 
+
+         String testLocation = "94074";
+         String testDate = "20140612";
+
          // Add the location values in with the weather data so that we can make
          // sure that the join worked and we actually get all the values back
          addAllContentValues(weatherValues, testValues);
 
          // Get the joined Weather and Location data
          weatherCursor = mContext.getContentResolver().query(
-                 WeatherEntry.buildWeatherLocation(TestDb.TEST_LOCATION),
+                 WeatherEntry.buildWeatherLocation(testLocation),
                  null, // leaving "columns" null just returns all the columns.
                  null, // cols for "where" clause
                  null, // values for "where" clause
@@ -148,7 +144,7 @@ public class TestProvider extends AndroidTestCase {
          // Get the joined Weather and Location data with a start date
          weatherCursor = mContext.getContentResolver().query(
                  WeatherEntry.buildWeatherLocationWithStartDate(
-                         TestDb.TEST_LOCATION, TestDb.TEST_DATE),
+                         testLocation, testDate),
                  null, // leaving "columns" null just returns all the columns.
                  null, // cols for "where" clause
                  null, // values for "where" clause
@@ -158,7 +154,7 @@ public class TestProvider extends AndroidTestCase {
 
          // Get the joined Weather data for a specific date
          weatherCursor = mContext.getContentResolver().query(
-                 WeatherEntry.buildWeatherLocationWithDate(TestDb.TEST_LOCATION, TestDb.TEST_DATE),
+                 WeatherEntry.buildWeatherLocationWithDate(testLocation, testDate),
                  null,
                  null,
                  null,
@@ -166,48 +162,38 @@ public class TestProvider extends AndroidTestCase {
          );
          TestDb.validateCursor(weatherCursor, weatherValues);
      }
-	   */
-    
-    
 
-     /* TODO Uncomment for
-     4b - Coding the Content Provider : getType()
-     https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098546/m-1675098547
      public void testGetType() {
-         // content://com.example.android.sunshine.app/weather/
+         // content://app.amoenus.traktroulette/weather/
          String type = mContext.getContentResolver().getType(WeatherEntry.CONTENT_URI);
-         // vnd.android.cursor.dir/com.example.android.sunshine.app/weather
+         // vnd.android.cursor.dir/app.amoenus.traktroulette/weather
          assertEquals(WeatherEntry.CONTENT_TYPE, type);
 
          String testLocation = "94074";
-         // content://com.example.android.sunshine.app/weather/94074
+         // content://app.amoenus.traktroulette/weather/94074
          type = mContext.getContentResolver().getType(
                  WeatherEntry.buildWeatherLocation(testLocation));
-         // vnd.android.cursor.dir/com.example.android.sunshine.app/weather
+         // vnd.android.cursor.dir/app.amoenus.traktroulette/weather
          assertEquals(WeatherEntry.CONTENT_TYPE, type);
 
          String testDate = "20140612";
-         // content://com.example.android.sunshine.app/weather/94074/20140612
+         // content://app.amoenus.traktroulette/weather/94074/20140612
          type = mContext.getContentResolver().getType(
                  WeatherEntry.buildWeatherLocationWithDate(testLocation, testDate));
-         // vnd.android.cursor.item/com.example.android.sunshine.app/weather
+         // vnd.android.cursor.item/app.amoenus.traktroulette/weather
          assertEquals(WeatherEntry.CONTENT_ITEM_TYPE, type);
 
-         // content://com.example.android.sunshine.app/location/
+         // content://app.amoenus.traktroulette/location/
          type = mContext.getContentResolver().getType(LocationEntry.CONTENT_URI);
-         // vnd.android.cursor.dir/com.example.android.sunshine.app/location
+         // vnd.android.cursor.dir/app.amoenus.traktroulette/location
          assertEquals(LocationEntry.CONTENT_TYPE, type);
 
-         // content://com.example.android.sunshine.app/location/1
+         // content://app.amoenus.traktroulette/location/1
          type = mContext.getContentResolver().getType(LocationEntry.buildLocationUri(1L));
-         // vnd.android.cursor.item/com.example.android.sunshine.app/location
+         // vnd.android.cursor.item/app.amoenus.traktroulette/location
          assertEquals(LocationEntry.CONTENT_ITEM_TYPE, type);
      }
-     */
 
-     /* TODO Uncomment for
-     4b - Updating and Deleting
-     https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098563/m-1675098564
      public void testUpdateLocation() {
          // Create a new map of values, where column names are the keys
          ContentValues values = TestDb.createNorthPoleLocationValues();
@@ -241,7 +227,6 @@ public class TestProvider extends AndroidTestCase {
 
          TestDb.validateCursor(cursor, updatedValues);
      }
-     */
 
      // Make sure we can still delete after adding/updating stuff
      public void testDeleteRecordsAtEnd() {

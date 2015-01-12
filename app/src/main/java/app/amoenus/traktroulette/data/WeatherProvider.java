@@ -160,12 +160,32 @@ public class WeatherProvider extends ContentProvider {
                  );
                  break;
              }
-
-             /**
-              * TODO YOUR CODE BELOW HERE FOR QUIZ
-              * QUIZ - 4b - Implement Location_ID queries
-              * https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098551/m-1675098552
-              **/
+             // "location/*"
+             case LOCATION_ID: {
+                 retCursor = mOpenHelper.getReadableDatabase().query(
+                         WeatherContract.LocationEntry.TABLE_NAME,
+                         projection,
+                         WeatherContract.LocationEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                         null,
+                         null,
+                         null,
+                         sortOrder
+                 );
+                 break;
+             }
+             // "location"
+             case LOCATION: {
+                 retCursor = mOpenHelper.getReadableDatabase().query(
+                         WeatherContract.LocationEntry.TABLE_NAME,
+                         projection,
+                         selection,
+                         selectionArgs,
+                         null,
+                         null,
+                         sortOrder
+                 );
+                 break;
+             }
 
              default:
                  throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -187,13 +207,10 @@ public class WeatherProvider extends ContentProvider {
                  return WeatherContract.WeatherEntry.CONTENT_TYPE;
              case WEATHER:
                  return WeatherContract.WeatherEntry.CONTENT_TYPE;
-
-             /**
-              * TODO YOUR CODE BELOW HERE FOR QUIZ
-              * QUIZ - 4b - Coding the Content Provider : getType
-              * https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098546/m-1675098547
-              **/
-
+             case LOCATION:
+                 return WeatherContract.WeatherEntry.CONTENT_TYPE;
+             case LOCATION_ID:
+                 return WeatherContract.WeatherEntry.CONTENT_ITEM_TYPE;
              default:
                  throw new UnsupportedOperationException("Unknown uri: " + uri);
          }
@@ -253,16 +270,29 @@ public class WeatherProvider extends ContentProvider {
          return rowsDeleted;
      }
 
-     @Override
-     public int update(
-             Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-         /**
-          * TODO YOUR CODE BELOW HERE FOR QUIZ
-          * QUIZ - 4b - Updating and Deleting
-          * https://www.udacity.com/course/viewer#!/c-ud853/l-1576308909/e-1675098563/m-1675098564
-          **/
-         return 0;
-     }
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        int rowsUpdated;
+
+        switch (match) {
+            case WEATHER:
+                rowsUpdated = db.update(WeatherContract.WeatherEntry.TABLE_NAME, values, selection,
+                        selectionArgs);
+                break;
+            case LOCATION:
+                rowsUpdated =  db.update(WeatherContract.LocationEntry.TABLE_NAME, values, selection,
+                        selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
+    }
 
      @Override
      public int bulkInsert(Uri uri, ContentValues[] values) {
