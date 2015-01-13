@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,10 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -61,7 +60,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public static final int COL_WEATHER_MIN_TEMP = 4;
     public static final int COL_LOCATION_SETTING = 5;
 
-    ArrayAdapter<String> mForecastAdapter;
+    SimpleCursorAdapter mForecastAdapter;
     ListView mListView;
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
@@ -97,7 +96,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void UpdateWeather() {
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity(), mForecastAdapter);
+        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
         String location = GetDefaultSharedLocationPreference();
         weatherTask.execute(location);
     }
@@ -116,7 +115,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        CreateArrayAdapter();
+        CreateSimpleCursorAdapter();
         SetForecastAdapterToView(rootView);
         SetOnItemClickListener();
         return rootView;
@@ -129,10 +128,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
              @Override
              public void onItemClick(AdapterView<?> parent, View view, int position, long id)
              {
-                String forecast = mForecastAdapter.getItem(position);
+                //String forecast = mForecastAdapter.getItem(position);
                  Context context = getActivity();
                  Intent openDetailedViewIntent = new Intent(context, DetailActivity.class)
-                         .putExtra(Intent.EXTRA_TEXT, forecast);
+                         .putExtra(Intent.EXTRA_TEXT, "placeholder");
                  startActivity(openDetailedViewIntent);
 
              }
@@ -146,8 +145,27 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         mListView.setAdapter(mForecastAdapter);
     }
 
-    private void CreateArrayAdapter() {
-        mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast,R.id.list_item_forecast_textview, new ArrayList<String>());
+    private void CreateSimpleCursorAdapter() {
+        // The SimpleCursorAdapter will take data from the database through the
+        // Loader and use it to populate the ListView it's attached to.
+        mForecastAdapter = new SimpleCursorAdapter(
+                getActivity(),
+                R.layout.list_item_forecast,
+                null,
+                // the column names to use to fill the textviews
+                new String[]{WeatherContract.WeatherEntry.COLUMN_DATETEXT,
+                        WeatherContract.WeatherEntry.COLUMN_SHORT_DESC,
+                        WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
+                        WeatherContract.WeatherEntry.COLUMN_MIN_TEMP
+                },
+                // the textviews to fill with the data pulled from the columns above
+                new int[]{R.id.list_item_date_textview,
+                        R.id.list_item_forecast_textview,
+                        R.id.list_item_high_textview,
+                        R.id.list_item_low_textview
+                },
+                0
+        );
     }
 
     @Override
@@ -180,17 +198,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onLoadFinished(android.support.v4.content.Loader<Cursor> cursorLoader, Cursor cursor) {
-
+    public void onLoadFinished(Loader loader, Cursor data)
+    {
+        mForecastAdapter.swapCursor(data);
     }
 
     @Override
-    public void onLoaderReset(android.support.v4.content.Loader<Cursor> cursorLoader) {
-
+    public void onLoaderReset(Loader loader)
+    {
+        mForecastAdapter.swapCursor(null);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         getLoaderManager().initLoader(FORECAST_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }

@@ -85,16 +85,13 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        /* TODO Uncomment for
-        4a - SQLiteOpenHelper onUpgrade() method
-        https://www.udacity.com/course/viewer#!/c-ud853/l-1639338560/m-1633698602
+
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         // Note that this only fires if you change the version number for your database.
         // It does NOT depend on the version number for your application.
         // If you want to update the schema without wiping data, commenting out the next 2 lines
         // should be your top priority before modifying this method.
-        */
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LocationEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
