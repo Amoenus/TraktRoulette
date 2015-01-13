@@ -30,8 +30,8 @@ import java.util.Date;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
-
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
+{
     private static final int FORECAST_LOADER = 0;
     private String mLocation;
 
@@ -69,21 +69,18 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forecastfragment, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         //Handle action bar item clicks here. Action bar will
         //automatically handle clicks on Home/Up button, so long
         //as you specify a parent activity in AndroidManifest.xml
@@ -114,7 +111,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         CreateSimpleCursorAdapter();
         ProcessDataForTextView();
@@ -124,19 +122,24 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void ProcessDataForTextView() {
-        mForecastAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+        mForecastAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder()
+        {
             @Override
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex)
+            {
                 boolean isMetric = Utility.isMetric(getActivity());
-                switch (columnIndex) {
+                switch (columnIndex)
+                {
                     case COL_WEATHER_MAX_TEMP:
-                    case COL_WEATHER_MIN_TEMP: {
+                    case COL_WEATHER_MIN_TEMP:
+                    {
                         // we have to do some formatting and possibly a conversion
                         ((TextView) view).setText(Utility.formatTemperature(
                                 cursor.getDouble(columnIndex), isMetric));
                         return true;
                     }
-                    case COL_WEATHER_DATE: {
+                    case COL_WEATHER_DATE:
+                    {
                         String dateString = cursor.getString(columnIndex);
 
                         TextView dateView = (TextView) view;
@@ -154,39 +157,50 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private void SetOnItemClickListener()
     {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-             @Override
-             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                 Cursor cursor = mForecastAdapter.getCursor();
-                 if (cursor != null && cursor.moveToPosition(position)) {
-                     String dateString = Utility.formatDate(cursor.getString(COL_WEATHER_DATE));
-                     String weatherDescription = cursor.getString(COL_WEATHER_DESC);
+             {
+                 @Override
+                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                     boolean isMetric = Utility.isMetric(getActivity());
-                     String high = Utility.formatTemperature(
-                             cursor.getDouble(COL_WEATHER_MAX_TEMP), isMetric);
-                     String low = Utility.formatTemperature(
-                             cursor.getDouble(COL_WEATHER_MIN_TEMP), isMetric);
+                     Cursor cursor = getCursorFromAdapterView(adapterView);
 
-                     String detailString = String.format("%s - %s - %s/%s",
-                             dateString, weatherDescription, high, low);
+                     if (cursor != null && cursor.moveToPosition(position))
+                     {
+                         String dateString = Utility.formatDate(cursor.getString(COL_WEATHER_DATE));
+                         String weatherDescription = cursor.getString(COL_WEATHER_DESC);
 
-                     Intent intent = new Intent(getActivity(), DetailActivity.class)
-                             .putExtra(Intent.EXTRA_TEXT, detailString);
-                     startActivity(intent);
+                         boolean isMetric = Utility.isMetric(getActivity());
+                         String high = Utility.formatTemperature(
+                                 cursor.getDouble(COL_WEATHER_MAX_TEMP), isMetric);
+                         String low = Utility.formatTemperature(
+                                 cursor.getDouble(COL_WEATHER_MIN_TEMP), isMetric);
+
+                         String detailString = String.format("%s - %s - %s/%s",
+                                 dateString, weatherDescription, high, low);
+
+                         Intent intent = new Intent(getActivity(), DetailActivity.class)
+                                 .putExtra(Intent.EXTRA_TEXT, detailString);
+                         startActivity(intent);
+                     }
                  }
              }
-        }
         );
     }
 
+    private Cursor getCursorFromAdapterView(AdapterView<?> adapterView)
+    {
+        SimpleCursorAdapter cursorAdapter = (SimpleCursorAdapter) adapterView.getAdapter();
+        return cursorAdapter.getCursor();
+    }
 
-    private void SetForecastAdapterToView(View rootView) {
+
+    private void SetForecastAdapterToView(View rootView)
+    {
         mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
         mListView.setAdapter(mForecastAdapter);
     }
 
-    private void CreateSimpleCursorAdapter() {
+    private void CreateSimpleCursorAdapter()
+    {
         // The SimpleCursorAdapter will take data from the database through the
         // Loader and use it to populate the ListView it's attached to.
         mForecastAdapter = new SimpleCursorAdapter(
@@ -210,7 +224,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+    {
         // This is called when a new Loader needs to be created.  This
         // fragment only uses one loader, so we don't care about checking the id.
 
