@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Date;
 
@@ -116,9 +117,38 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         CreateSimpleCursorAdapter();
+        ProcessDataForTextView();
         SetForecastAdapterToView(rootView);
         SetOnItemClickListener();
         return rootView;
+    }
+
+    private void ProcessDataForTextView() {
+        mForecastAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                boolean isMetric = Utility.isMetric(getActivity());
+                switch (columnIndex) {
+                    case COL_WEATHER_MAX_TEMP:
+                    case COL_WEATHER_MIN_TEMP: {
+                        // we have to do some formatting and possibly a conversion
+                        ((TextView) view).setText(Utility.formatTemperature(
+                                cursor.getDouble(columnIndex), isMetric));
+                        return true;
+                    }
+                    case COL_WEATHER_DATE: {
+                        String dateString = cursor.getString(columnIndex);
+
+                        TextView dateView = (TextView) view;
+                        dateView.setText(Utility.formatDate(dateString));
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+
+        });
     }
 
     private void SetOnItemClickListener()
@@ -126,8 +156,15 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
              @Override
-             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
              {
+                SimpleCursorAdapter cursorAdapter = (SimpleCursorAdapter) adapterView.getAdapter();
+                 Cursor cursor = cursorAdapter.getCursor();
+                 if(null != cursor && cursor.moveToPosition(position))
+                 {
+                     boolean isMetric = Utility.isMetric(getActivity());
+                 }
+
                 //String forecast = mForecastAdapter.getItem(position);
                  Context context = getActivity();
                  Intent openDetailedViewIntent = new Intent(context, DetailActivity.class)

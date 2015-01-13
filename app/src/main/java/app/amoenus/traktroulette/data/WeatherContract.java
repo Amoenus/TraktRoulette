@@ -188,5 +188,20 @@ public class WeatherContract {
         public static String getStartDateFromUri(Uri uri) {
             return uri.getQueryParameter(COLUMN_DATETEXT);
         }
+
+        /**
+         * Converts a dateText to a long Unix time representation
+         * @param dateText the input date string
+         * @return the Date object
+         */
+        public static Date getDateFromDb(String dateText) {
+            SimpleDateFormat dbDateFormat = new SimpleDateFormat(DATE_FORMAT);
+            try {
+                return dbDateFormat.parse(dateText);
+            } catch ( ParseException e ) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 }
