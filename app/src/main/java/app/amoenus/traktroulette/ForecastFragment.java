@@ -215,10 +215,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                         WeatherContract.WeatherEntry.COLUMN_MIN_TEMP
                 },
                 // the textviews to fill with the data pulled from the columns above
-                new int[]{R.id.list_item_date_textview,
-                        R.id.list_item_forecast_textview,
-                        R.id.list_item_high_textview,
-                        R.id.list_item_low_textview
+                new int[]{R.id.detail_date_textview,
+                        R.id.detail_forecast_textview,
+                        R.id.detail_high_textview,
+                        R.id.detail_low_textview
                 },
                 0
         );
