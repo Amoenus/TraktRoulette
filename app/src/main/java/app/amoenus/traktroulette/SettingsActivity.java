@@ -21,8 +21,8 @@ import app.amoenus.traktroulette.data.WeatherContract;
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-// since we use the preference change initially to populate the summary
-// field, we'll ignore that change at start of the activity
+    // since we use the preference change initially to populate the summary
+    // field, we'll ignore that change at start of the activity
     boolean mBindingPreference;
 
     @Override
@@ -42,9 +42,9 @@ public class SettingsActivity extends PreferenceActivity
      * Also fires the listener once, to initialize the summary (so it shows up before the value
      * is changed.)
      */
-    private void bindPreferenceSummaryToValue(Preference preference)
-    {
+    private void bindPreferenceSummaryToValue(Preference preference) {
         mBindingPreference = true;
+
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(this);
 
@@ -60,6 +60,7 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
+        String stringValue = value.toString();
 
         // are we starting the preference activity?
         if ( !mBindingPreference ) {
@@ -72,9 +73,6 @@ public class SettingsActivity extends PreferenceActivity
                 getContentResolver().notifyChange(WeatherContract.WeatherEntry.CONTENT_URI, null);
             }
         }
-
-
-        String stringValue = value.toString();
 
         if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
