@@ -6,7 +6,7 @@
          It's to keep this short, so your launcher icon isn't displayed with "The greatest Wea"
          or something similar.
     -->
-    <string name="app_name">Sunshine</string>
+    <string name="app_name">Trakt Roulette</string>
 
     <!--
          By convention, "action" denotes that this String will be used as the label for an Action,
@@ -19,7 +19,6 @@
     <!-- Menu label to fetch updated weather info from the server -->
     <string name="action_refresh" translatable="false">Refresh</string>
     <string name="title_activity_detail">Details</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Label for the location preference [CHAR LIMIT=30] -->
     <string name="pref_location_label">Location</string>
@@ -47,5 +46,7 @@
 
     <!-- Value in SharedPreferences for imperial temperature unit option [CHAR LIMIT=NONE] -->
     <string name="pref_units_imperial" translatable="false">imperial</string>
+
+    <string name="list_item_icon">"List item icon"</string>
 
 </resources>
