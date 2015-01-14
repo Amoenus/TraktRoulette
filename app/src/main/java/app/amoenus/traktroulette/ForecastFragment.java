@@ -4,7 +4,6 @@ import app.amoenus.traktroulette.data.WeatherContract;
 import app.amoenus.traktroulette.data.WeatherContract.LocationEntry;
 import app.amoenus.traktroulette.data.WeatherContract.WeatherEntry;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -104,12 +103,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        UpdateWeather();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -119,6 +112,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         SetForecastAdapterToView(rootView);
         SetOnItemClickListener();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+            getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+        }
     }
 
     private void ProcessDataForTextView() {
