@@ -1,5 +1,6 @@
 package app.amoenus.traktroulette;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -197,13 +198,15 @@ public class DetailActivity extends ActionBarActivity {
             ((TextView) getView().findViewById(R.id.detail_forecast_textview))
                     .setText(weatherDescription);
 
-            boolean isMetric = Utility.isMetric(getActivity());
+            Context context = getActivity();
 
-            String high = Utility.formatTemperature(
+            boolean isMetric = Utility.isMetric(context);
+
+            String high = Utility.formatTemperature(context,
                     data.getDouble(data.getColumnIndex(WeatherEntry.COLUMN_MAX_TEMP)), isMetric);
             ((TextView) getView().findViewById(R.id.detail_high_textview)).setText(high);
 
-            String low = Utility.formatTemperature(
+            String low = Utility.formatTemperature(context,
                     data.getDouble(data.getColumnIndex(WeatherEntry.COLUMN_MIN_TEMP)), isMetric);
             ((TextView) getView().findViewById(R.id.detail_low_textview)).setText(low);
 
