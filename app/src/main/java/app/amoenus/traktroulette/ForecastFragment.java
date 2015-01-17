@@ -107,12 +107,12 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+            {
                 Cursor cursor = mForecastAdapter.getCursor();
-                if (cursor != null && cursor.moveToPosition(position)) {
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra(DetailActivity.DATE_KEY, cursor.getString(COL_WEATHER_DATE));
-                    startActivity(intent);
+                if (cursor != null && cursor.moveToPosition(position))
+                {
+                    ((ICallback)getActivity()).onItemSelected(cursor.getString(COL_WEATHER_DATE));
                 }
             }
         });
