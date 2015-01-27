@@ -31,7 +31,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final String LOCATION_KEY = "location";
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
-    private  static final String FORECAST_SHARE_HASHTAG = " #TraktRoulette";
+    private static final String FORECAST_SHARE_HASHTAG = " #TraktRoulette";
     public static final String DATE_KEY = "forecast_date";
 
     private ShareActionProvider mShareActionProvider;
@@ -68,13 +68,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mPressureView;
 
 
-    public DetailFragment() {
+    public DetailFragment()
+    {
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
         mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
@@ -89,22 +91,26 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState)
+    {
         outState.putString(LOCATION_KEY, mLocation);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         if (mLocation != null &&
-                !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+                !mLocation.equals(Utility.getPreferredLocation(getActivity())))
+        {
             getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
         }
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
         Log.v(LOG_TAG, "in onCreateOptionsMenu");
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.detailfragment, menu);
@@ -116,12 +122,14 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
         // If onLoadFinished happens before this, we can go ahead and set the share intent now.
-        if (mForecast != null) {
+        if (mForecast != null)
+        {
             mShareActionProvider.setShareIntent(createShareForecastIntent());
         }
     }
 
-    private Intent createShareForecastIntent() {
+    private Intent createShareForecastIntent()
+    {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
@@ -130,19 +138,23 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         getLoaderManager().initLoader(DETAIL_LOADER, null, this);
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
+        {
             mLocation = savedInstanceState.getString(LOCATION_KEY);
         }
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args)
+    {
         Log.v(LOG_TAG, "In onCreateLoader");
         Intent intent = getActivity().getIntent();
-        if (intent == null || !intent.hasExtra(DATE_KEY)) {
+        if (intent == null || !intent.hasExtra(DATE_KEY))
+        {
             return null;
         }
         String forecastDate = intent.getStringExtra(DATE_KEY);
@@ -168,8 +180,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data != null && data.moveToFirst()) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data)
+    {
+        if (data != null && data.moveToFirst())
+        {
             // Read weather condition ID from cursor
             int weatherId = data.getInt(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID));
             // Use placeholder Image
@@ -218,16 +232,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             Log.v(LOG_TAG, "Forecast String: " + mForecast);
 
             // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-            if (mShareActionProvider != null) {
+            if (mShareActionProvider != null)
+            {
                 mShareActionProvider.setShareIntent(createShareForecastIntent());
             }
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) { }
-<<<<<<< HEAD
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+    }
 }
-=======
-}
->>>>>>> parent of 0866882... TabletView
